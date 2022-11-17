@@ -1,0 +1,6 @@
+.card_container{
+    height: 25rem;
+    width: 30rem;
+    margin-bottom: 5rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
