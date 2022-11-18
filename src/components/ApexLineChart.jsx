@@ -1,44 +1,44 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
   
-const ApexLineChart = ({ dateProps, dataPointProps}) => {
+const ApexLineChart = ({ dateProps, dataPointProps, name}) => {
 
-  const [options, setOptions] = useState({
-    chart: {
-      id: "basic-bar",
-    },
-    xaxis: {
-      categories: [],
-    },
-  });
+//   const [options, setOptions] = useState({
+//     chart: {
+//       id: "basic-bar",
+//     },
+//     xaxis: {
+//       categories: [],
+//     },
+//   });
 
-  const [series, setSeries] = useState([{
-    name: "series-1",
-    data: [],
-  }]);
+//   const [series, setSeries] = useState([{
+//     name: "series-1",
+//     data: [],
+//   }]);
 
-  // console.log(dateProps, dataPointProps)
-const a = () =>{
-    setOptions({
-        chart: {
-          id: "basic-bar",
-        },
-        xaxis: {
-          categories: dateProps,
-        },
-      })
+//   // console.log(dateProps, dataPointProps)
+// const a = () =>{
+//     setOptions({
+//         chart: {
+//           id: "basic-bar",
+//         },
+//         xaxis: {
+//           categories: dateProps,
+//         },
+//       })
 
-      setSeries([{
-        name: "series-1",
-        data: dataPointProps,
-      }])
-      // console.log(dateProps, dataPointProps)
-}
+//       setSeries([{
+//         name: "series-1",
+//         data: dataPointProps,
+//       }])
+//       // console.log(dateProps, dataPointProps)
+// }
 
-useEffect(() => {
-  a()
+// useEffect(() => {
+//   a()
 
-}, [])
+// }, [])
 
 
 
@@ -51,15 +51,26 @@ useEffect(() => {
       <div className="row">
         <div className="mixed-chart">
           <Chart
-            options={options}
-            series={series}
+            options={{
+              chart: {
+                id: "basic-bar",
+              },
+              xaxis: {
+                categories: dateProps,
+              },
+            }}
+            series={[{
+              name: "series-1",
+              data: dataPointProps,
+            }]}
             type="area"
             width="500"
           />
         </div>
+        <h2>{name}</h2>
       </div>
 
-      <button onClick={a}>Get Chart</button>
+      {/* <button>Get Chart</button> */}
     </div>
   );
 };

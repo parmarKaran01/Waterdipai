@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 const DonutChart = ({ countryProps, dataPointProps }) => {
-  // console.log(countryProps, dataPointProps);
+  console.log(countryProps, dataPointProps);
   const [options, setOptions] = useState({
     chart: {
       type: "pie",
@@ -18,47 +18,39 @@ const DonutChart = ({ countryProps, dataPointProps }) => {
       enabled: false,
     },
     xaxis: {
-      categories: [],
+      categories: countryProps,
     },
   });
 
-  const [series, setSeries] = useState([
-    {
-      data: [],
-    },
-  ]);
+  const [series, setSeries] = useState(dataPointProps);
 
   //   console.log(dateProps, dataPointProps)
-  const a = () => {
-    setOptions({
-      chart: {
-        type: "pie",
-        height: 500,
-      },
-      plotOptions: {
-        pie: {
-          borderRadius: 4,
-          horizontal: true,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      xaxis: {
-        categories: dataPointProps,
-      },
-    });
+  // const a = () => {
+  //   setOptions({
+  //     chart: {
+  //       type: "pie",
+  //       height: 500,
+  //     },
+  //     plotOptions: {
+  //       pie: {
+  //         borderRadius: 4,
+  //         horizontal: true,
+  //       },
+  //     },
+  //     dataLabels: {
+  //       enabled: false,
+  //     },
+  //     xaxis: {
+  //       categories: countryProps,
+  //     },
+  //   });
 
-    setSeries([
-      {
-        data: countryProps,
-      },
-    ]);
-  };
+  //   setSeries(dataPointProps);
+  // };
 
-  useEffect(() => {
-    a();
-  }, []);
+  // useEffect(() => {
+  //   a();
+  // }, []);
 
   //   this.state = {
 
@@ -90,11 +82,32 @@ const DonutChart = ({ countryProps, dataPointProps }) => {
     <div className="app">
       <div className="row">
         <div className="mixed-chart">
-          <Chart options={options} series={series} type="pie" width="500" />
+          <Chart
+            options={{
+              chart: {
+                type: "pie",
+                height: 500,
+              },
+              plotOptions: {
+                pie: {
+                  borderRadius: 4,
+                  horizontal: true,
+                },
+              },
+              dataLabels: {
+                enabled: false,
+              },
+              xaxis: {
+                categories: countryProps,
+              },
+            }}
+            series={dataPointProps}
+            type="pie"
+            width="500"
+          />
         </div>
       </div>
-
-      <button onClick={a}>button</button>
+      <h2>Total People According to countries</h2>
     </div>
   );
 };
