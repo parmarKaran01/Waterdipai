@@ -3,9 +3,9 @@ import csvFile from "./hotel_bookings_1000.csv"
 import * as d3  from "d3"
 import Card from './Card'
 import './Dashboard.css'
-import LineChart from './LineChart'
 import ApexLineChart from './ApexLineChart'
 import DonutChart from './DonutChart'
+import ApexAreChart from './ApexAreaChart'
 function Dashboard() {
     
     const[data, setData] = useState([])
@@ -14,19 +14,23 @@ function Dashboard() {
     // const[adults, setAdults] = useState();
     // const[children, setChildren] = useState();
     // const[babies, setBabies] = useState();
+    const[state, setState] = useState([])
+    const[people, setPeople] = useState([])
+    const[adults, setAdults] = useState([])
+    const[children, setChildren] = useState([])
     
     // count of the total people
-    const[total, setTotal] = useState();
+    // const[total, setTotal] = useState();
     const inputStartDate = useRef();
     const inputEndDate = useRef()
     let dates = []
     let totalPersonEachDay = []
     let totalAdultsEachDay = []
     let totalChildrensEachDay = []
-    let countries =[]
+    let countries = []
     let totalPersonCountries =[]
     let dateProps = []
-    let totalPeopleProps =[]
+    let totalPeopleProps = []
  
 
     const dummy = [
@@ -123,15 +127,10 @@ function Dashboard() {
     
 
     // array of the total people visited day wise
-    const[totalPeople, setTotalPeople] = useState([])
+    // const[totalPeople, setTotalPeople] = useState([])
     // const uniqueCountries = [...new Set(data.map((obj)=>{
     //     return obj.country
     // }))]
-
-    // dates.map((val) =>{
-    //     const temp = `${val.arrival_date_year}-${val.arrival_date_month}-${val.arrival_date_day_of_month}`
-
-    // })
 
     // function getCount(){
     //     let childrenCount =0;
@@ -170,7 +169,7 @@ function Dashboard() {
 
     countryMap.forEach(function(country, value){
         countries.push(country)
-        totalPersonCountries.push(value)
+        totalPersonCountries.push(parseInt(value))
     })
 
 
@@ -229,33 +228,32 @@ function Dashboard() {
         console.log(val2);
 
         //temp array of dates
-        let tempdates = [...dates];
-        let tempTotalPersonEachDay = [...totalPersonEachDay]
-        let tempTotalAdultEachDay = [...totalAdultsEachDay]
-        let tempTotalChildrensEachDay = [...totalChildrensEachDay]
-        let indexOfStartDate = tempdates.indexOf(val1)
-        let indexOfEndDate = tempdates.indexOf(val2)
+        let indexOfStartDate = dates.indexOf(val1)
+        let indexOfEndDate = dates.indexOf(val2)
         // console.log(indexOfStartDate);
         // console.log(indexOfEndDate);
         // console.log(tempdates)
         // console.log(val2)
 
         //slice the tempdates array
-        const filteredDates = tempdates.slice(indexOfStartDate, indexOfEndDate + 1);
-        const filteredTotalPerson = tempTotalPersonEachDay.slice(indexOfStartDate, indexOfEndDate + 1);
-        const filteredTotalAdultsEachDay = tempTotalAdultEachDay.slice(indexOfStartDate, indexOfEndDate + 1)
-        const filteredTotalChildrensEachDay = tempTotalChildrensEachDay.slice(indexOfStartDate, indexOfEndDate + 1)
- 
+        const filteredDates = dates.slice(indexOfStartDate, indexOfEndDate + 1);
+        const filteredTotalPerson = totalPersonEachDay.slice(indexOfStartDate, indexOfEndDate + 1);
+        const filteredTotalAdultsEachDay = totalAdultsEachDay.slice(indexOfStartDate, indexOfEndDate + 1)
+        const filteredTotalChildrensEachDay = totalChildrensEachDay.slice(indexOfStartDate, indexOfEndDate + 1)
+//  
         // setDatesProps(filteredDates)
-        // setTotalPeopleProps(filteredTotalPerson)
-        dateProps = filteredDates
-        totalPeopleProps = filteredTotalPerson
-        console.log(dateProps);
-        console.log(totalPeopleProps);
+        // setTotalPeopleProps(filteredTotalPerson)s
+        setState(filteredDates)
+        setPeople(filteredTotalPerson)
+        setAdults(filteredTotalAdultsEachDay)
+        setChildren(filteredTotalChildrensEachDay)
+        
+        // console.log(totalPeopleProps);
         // console.log(dateProps)
         // console.log(filteredTotalAdultsEachDay);
         // console.log(filteredTotalChildrensEachDay);
-        // console.log(filteredTotalPerson)
+        // console.log(filteredTotalPerson) 
+        console.log(typeof(totalPersonCountries[0]));
 
     }
 
@@ -277,10 +275,11 @@ function Dashboard() {
         </div>
         <div className="main_container">
             {/* <LineChart datesProps={dates} datapointProps={totalPersonEachDay}/> */}
-            <ApexLineChart dateProps={dates} dataPointProps={totalPersonEachDay}/>
-            <ApexLineChart dateProps={dates} dataPointProps={totalAdultsEachDay}/>
-            <ApexLineChart dateProps={dates} dataPointProps={totalChildrensEachDay}/>
-            {/* <DonutChart countryProps={countries} dataPointProps={totalPersonCountries}/> */}
+        {/* <ApexAreChart dateProps={dateProps} dataPointProps={}/> */}
+            <ApexLineChart dateProps={state} dataPointProps={people}/>
+            <ApexLineChart dateProps={state} dataPointProps={adults}/>
+            <ApexLineChart dateProps={state} dataPointProps={children}/>
+            <DonutChart countryProps={countries} dataPointProps={totalPersonCountries}/>
 
         </div>
     </div>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
-
+  
 const ApexLineChart = ({ dateProps, dataPointProps}) => {
+
   const [options, setOptions] = useState({
     chart: {
       id: "basic-bar",
@@ -16,7 +17,7 @@ const ApexLineChart = ({ dateProps, dataPointProps}) => {
     data: [],
   }]);
 
-//   console.log(dateProps, dataPointProps)
+  // console.log(dateProps, dataPointProps)
 const a = () =>{
     setOptions({
         chart: {
@@ -31,6 +32,7 @@ const a = () =>{
         name: "series-1",
         data: dataPointProps,
       }])
+      // console.log(dateProps, dataPointProps)
 }
 
 useEffect(() => {
@@ -57,7 +59,7 @@ useEffect(() => {
         </div>
       </div>
 
-      <button onClick={a}>button</button>
+      <button onClick={a}>Get Chart</button>
     </div>
   );
 };
